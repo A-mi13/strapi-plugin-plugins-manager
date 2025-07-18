@@ -34,8 +34,7 @@ const PluginsManagerPage = () => {
             'auto-slug-manager',
             'strapi-plugin-email-designer', 
             'strapi-plugin-import-export-entries',
-            'page-builder',
-            'plugins-manager'
+            'page-builder'
           ];
           
           console.log('🧩 [Global Plugin Hiding] Hiding custom plugin icons...');
@@ -113,8 +112,12 @@ const PluginsManagerPage = () => {
               // Ищем по тексту в ссылках - только для page-builder
               const allLinks = document.querySelectorAll('a');
               allLinks.forEach(link => {
-                if (link.textContent && link.textContent.toLowerCase().includes('page builder') && 
-                    link.href && link.href.includes('/plugins/')) {
+                if (link.textContent && (
+                  link.textContent.toLowerCase().includes('page builder') ||
+                  link.textContent.toLowerCase().includes('page-builder') ||
+                  link.textContent.toLowerCase().includes('pagebuilder') ||
+                  link.textContent.toLowerCase().includes('wecre8websites')
+                ) && link.href && link.href.includes('/plugins/')) {
                   console.log('🧩 [Global Plugin Hiding] Found page-builder link by text:', link.textContent);
                   
                   // Более агрессивное скрытие для ссылок
@@ -123,6 +126,10 @@ const PluginsManagerPage = () => {
                   link.style.opacity = '0';
                   link.style.position = 'absolute';
                   link.style.left = '-9999px';
+                  link.style.pointerEvents = 'none';
+                  link.style.width = '0';
+                  link.style.height = '0';
+                  link.style.overflow = 'hidden';
                   
                   const listItem = link.closest('li');
                   if (listItem) {
@@ -131,13 +138,10 @@ const PluginsManagerPage = () => {
                     listItem.style.opacity = '0';
                     listItem.style.position = 'absolute';
                     listItem.style.left = '-9999px';
-                  }
-                  
-                  // Скрываем только ближайший li родитель
-                  const listItem = link.closest('li');
-                  if (listItem) {
-                    listItem.style.display = 'none';
-                    listItem.style.visibility = 'hidden';
+                    listItem.style.pointerEvents = 'none';
+                    listItem.style.width = '0';
+                    listItem.style.height = '0';
+                    listItem.style.overflow = 'hidden';
                   }
                   
                   // Удаляем элемент из DOM как последний вариант
@@ -205,40 +209,50 @@ const PluginsManagerPage = () => {
         [data-testid="menu-item-strapi-plugin-email-designer"],
         [data-testid="menu-item-strapi-plugin-import-export-entries"],
         [data-testid="menu-item-page-builder"],
-        [data-testid="menu-item-plugins-manager"],
+        [data-testid*="page-builder"],
+        [data-testid*="pagebuilder"],
+        [data-testid*="wecre8websites"],
+        [data-testid*="strapi-page-builder"],
+        [data-testid="menu-item-wecre8websites"],
+        [data-testid="menu-item-strapi-page-builder"],
         /* Альтернативные селекторы для кастомных плагинов */
         a[href*="/plugins/auto-slug-manager"],
         a[href*="/plugins/strapi-plugin-email-designer"],
         a[href*="/plugins/strapi-plugin-import-export-entries"],
         a[href*="/plugins/page-builder"],
-        a[href*="/plugins/plugins-manager"],
-        /* Дополнительные селекторы для page-builder */
-        [data-testid*="page-builder"],
-        [data-testid*="pagebuilder"],
-        [data-testid*="wecre8websites"],
-        [data-testid*="strapi-page-builder"],
+        a[href*="/plugins/pagebuilder"],
+        a[href*="/plugins/wecre8websites"],
+        a[href*="/plugins/strapi-page-builder"],
         a[href*="page-builder"],
         a[href*="pagebuilder"],
         a[href*="wecre8websites"],
         a[href*="strapi-page-builder"],
-        /* Агрессивное скрытие page-builder - только конкретные пути */
-        a[href*="/plugins/page-builder"],
-        a[href*="/plugins/pagebuilder"],
-        a[href*="/plugins/wecre8websites"],
-        a[href*="/plugins/strapi-page-builder"],
+        /* Скрываем через родительские элементы */
         li:has(a[href*="/plugins/page-builder"]),
         li:has(a[href*="/plugins/pagebuilder"]),
         li:has(a[href*="/plugins/wecre8websites"]),
         li:has(a[href*="/plugins/strapi-page-builder"]),
-        /* Скрываем через родительские элементы */
-        li:has(a[href*="/plugins/page-builder"]),
         li:has([data-testid*="page-builder"]),
         li:has([data-testid*="pagebuilder"]),
+        li:has([data-testid*="wecre8websites"]),
+        li:has([data-testid*="strapi-page-builder"]),
         li:has(a[href*="/plugins/auto-slug-manager"]),
         li:has(a[href*="/plugins/strapi-plugin-email-designer"]),
         li:has(a[href*="/plugins/strapi-plugin-import-export-entries"]),
-        li:has(a[href*="/plugins/plugins-manager"]) {
+        /* Агрессивное скрытие page-builder с дополнительными свойствами */
+        [data-testid*="page-builder"],
+        [data-testid*="pagebuilder"],
+        [data-testid*="wecre8websites"],
+        [data-testid*="strapi-page-builder"] {
           display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          position: absolute !important;
+          left: -9999px !important;
+          pointer-events: none !important;
+          width: 0 !important;
+          height: 0 !important;
+          overflow: hidden !important;
         }
       `;
       document.head.appendChild(style);
@@ -251,8 +265,7 @@ const PluginsManagerPage = () => {
         'auto-slug-manager',
         'strapi-plugin-email-designer', 
         'strapi-plugin-import-export-entries',
-        'page-builder',
-        'plugins-manager'
+        'page-builder'
       ];
       
       customPlugins.forEach(pluginName => {
@@ -277,19 +290,43 @@ const PluginsManagerPage = () => {
           const pageBuilderSelectors = [
             '[data-testid*="page-builder"]',
             '[data-testid*="pagebuilder"]',
+            '[data-testid*="wecre8websites"]',
+            '[data-testid*="strapi-page-builder"]',
             'a[href*="page-builder"]',
             'a[href*="pagebuilder"]',
+            'a[href*="wecre8websites"]',
+            'a[href*="strapi-page-builder"]',
             'a[href*="/plugins/page-builder"]',
-            'a[href*="/plugins/pagebuilder"]'
+            'a[href*="/plugins/pagebuilder"]',
+            'a[href*="/plugins/wecre8websites"]',
+            'a[href*="/plugins/strapi-page-builder"]'
           ];
           
           pageBuilderSelectors.forEach(selector => {
             const elements = document.querySelectorAll(selector);
             elements.forEach(element => {
+              // Агрессивное скрытие
               element.style.display = 'none';
+              element.style.visibility = 'hidden';
+              element.style.opacity = '0';
+              element.style.position = 'absolute';
+              element.style.left = '-9999px';
+              element.style.pointerEvents = 'none';
+              element.style.width = '0';
+              element.style.height = '0';
+              element.style.overflow = 'hidden';
+              
               const listItem = element.closest('li');
               if (listItem) {
                 listItem.style.display = 'none';
+                listItem.style.visibility = 'hidden';
+                listItem.style.opacity = '0';
+                listItem.style.position = 'absolute';
+                listItem.style.left = '-9999px';
+                listItem.style.pointerEvents = 'none';
+                listItem.style.width = '0';
+                listItem.style.height = '0';
+                listItem.style.overflow = 'hidden';
               }
             });
           });
@@ -297,10 +334,23 @@ const PluginsManagerPage = () => {
           // Ищем по тексту в ссылках
           const allLinks = document.querySelectorAll('a');
           allLinks.forEach(link => {
-            if (link.textContent && link.textContent.toLowerCase().includes('page builder')) {
+            if (link.textContent && (
+              link.textContent.toLowerCase().includes('page builder') ||
+              link.textContent.toLowerCase().includes('page-builder') ||
+              link.textContent.toLowerCase().includes('pagebuilder') ||
+              link.textContent.toLowerCase().includes('wecre8websites')
+            )) {
               const listItem = link.closest('li');
               if (listItem) {
                 listItem.style.display = 'none';
+                listItem.style.visibility = 'hidden';
+                listItem.style.opacity = '0';
+                listItem.style.position = 'absolute';
+                listItem.style.left = '-9999px';
+                listItem.style.pointerEvents = 'none';
+                listItem.style.width = '0';
+                listItem.style.height = '0';
+                listItem.style.overflow = 'hidden';
               }
             }
           });
