@@ -17,9 +17,9 @@
 ### Через npm (рекомендуется)
 
 ```bash
-npm install @a-mi13/strapi-plugin-plugins-manager
+npm i strapi-plugin-plugins-manager
 # или
-yarn add @a-mi13/strapi-plugin-plugins-manager
+yarn add strapi-plugin-plugins-manager
 ```
 
 ### Ручная установка
