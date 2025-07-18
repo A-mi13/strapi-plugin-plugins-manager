@@ -1,5 +1,5 @@
 {
-  "name": "@your-username/strapi-plugin-plugins-manager",
+  "name": "@a-mi13/strapi-plugin-plugins-manager",
   "version": "1.0.0",
   "description": "Plugin manager with accordion interface for grouping all installed plugins",
   "main": "strapi-server.js",
@@ -15,16 +15,16 @@
     "plugins",
     "grouping"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "A-mi13 <alec-c13@yandex.ru>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/strapi-plugin-plugins-manager"
+    "url": "https://github.com/A-mi13/strapi-plugin-plugins-manager"
   },
   "bugs": {
-    "url": "https://github.com/your-username/strapi-plugin-plugins-manager/issues"
+    "url": "https://github.com/A-mi13/strapi-plugin-plugins-manager/issues"
   },
-  "homepage": "https://github.com/your-username/strapi-plugin-plugins-manager#readme",
+  "homepage": "https://github.com/A-mi13/strapi-plugin-plugins-manager#readme",
   "strapi": {
     "name": "plugins-manager",
     "displayName": "Plugins Manager",
