@@ -1,0 +1,41 @@
+{
+  "name": "@your-username/strapi-plugin-plugins-manager",
+  "version": "1.0.0",
+  "description": "Plugin manager with accordion interface for grouping all installed plugins",
+  "main": "strapi-server.js",
+  "scripts": {
+    "develop": "tsc -w",
+    "build": "tsc"
+  },
+  "keywords": [
+    "strapi",
+    "plugin",
+    "manager",
+    "accordion",
+    "plugins",
+    "grouping"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/strapi-plugin-plugins-manager"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/strapi-plugin-plugins-manager/issues"
+  },
+  "homepage": "https://github.com/your-username/strapi-plugin-plugins-manager#readme",
+  "strapi": {
+    "name": "plugins-manager",
+    "displayName": "Plugins Manager",
+    "description": "Plugin manager with accordion interface",
+    "kind": "plugin"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=6.0.0"
+  }
+} 
